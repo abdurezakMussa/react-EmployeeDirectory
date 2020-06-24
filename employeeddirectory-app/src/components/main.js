@@ -1,11 +1,10 @@
-import Reaact, { Component } from "react";
+import React, { Component } from "react";
 import API from "../components/utils/API";
-import SearchForm from "./SearchForm";
 import "../components/style.css";
-import datatable from "./SearchForm";
+import DataTable from "./SearchForm";
 import SearchBox from "./SearchForm";
 
-class Main extends Main {
+class Main extends Component {
   state = {
     searchs: "",
     employees: [],
@@ -14,7 +13,7 @@ class Main extends Main {
   };
   // this is the initialization, what do you want the page to display when page it's first loaded
   componentDidMount() {
-    API.getEmployee()
+    API.search()
       .then((res) =>
         this.setState({
           employees: res.data.results,
@@ -67,7 +66,7 @@ handleInputChange=event=>{
       filteredEmployees:res.data.results,
       employees:res.data.results
      }))
-     .catch(err=>console.log(err))
+     .catch(err=>console.log(err));
     }
        //when button search clicked
     handlesearch=event=>{
@@ -75,26 +74,26 @@ handleInputChange=event=>{
         if(!this.state.searchs){
         alert("Enter a name")
         }
-        const{employees,searchs}=this.state
+        const{employees,searchs}=this.state;
          //filters an object looking for the value that matches the value entered in the input box by the user  (search.this.state)
          const filteredEmployees=employees.filter(employees=>employees.name.first.toLowerCase()).includes(searchs.toLowerCase());
-         this.setState({
-             filteredEmployees
-         });
+         this.setState({  filteredEmployees });
+      }
          render(){
+           
              return(
                  <div>
                      <SearchBox
                      employees={this.state.employees}
                      handlesearch={this.handlesearch}
-                     handleInputChange={this.handleInputChange}
-                    />
-                    <dataTable results={this.state.filteredEmployees}
+                     handleInputChange={this.handleInputChange}/>
+                    <DataTable results={this.state.filteredEmployees}
                     sortByName={this.sortByName}
                     />
                  </div>
-             )
-         }
+               )
+             
+             }
     }
-}
+
 export default Main

@@ -1,11 +1,9 @@
-import React from 'react';
-import container from 
+import React, { Component } from 'react';
+import Main from "./components/Main"
 
 function App() {
   return (
-    <div className="App">
-      this is i t
-    </div>
+    <Main/>
   );
 }
 
